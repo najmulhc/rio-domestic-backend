@@ -1,0 +1,20 @@
+{
+  "name": "rio-domestic",
+  "version": "1.0.0",
+  "description": "this is the POC project of learning Redux js and it's toolkit. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "nodemon index.js"
+  },
+  "author": "Najmul Huda Chodhury",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
