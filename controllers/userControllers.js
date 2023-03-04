@@ -11,16 +11,18 @@ const addUser = async (req, res) => {
 };
 
 const editUser = async (req, res) => {
-  const { id } = req.params;
+   const { email, role } = req.body;
 
-  const foundUseer = await userModel.find({
-    _id: id,
-  });
+   const foundUseer = await userModel.findOneAndUpdate(
+     { email: email },
+     { role: role },
+     { new: true }
+   );
   console.log(foundUseer);
-  if (foundUseer[0]) {
+  if (foundUseer) {
     res.status(200).json({
       status: "success",
-      user: foundUseer[0],
+      user: foundUseer,
     });
   } else {
     res.status(400).json({
