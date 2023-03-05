@@ -2,13 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose")
 const cors = require("cors");
 const userRouter = require("./routes/userRouter");
+const productRouter = require("./routes/productRouter");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use("/user", userRouter);
-
+app.use("/product", productRouter);
 
 mongoose.connect("mongodb+srv://admin:admin@cluster0.knd04xn.mongodb.net/?retryWrites=true&w=majority").then(() => {
     console.log('server is connected with mongodb');

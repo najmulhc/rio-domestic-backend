@@ -1,5 +1,4 @@
-const userModel = require("../models/userModel");
-const mongoose = require("mongoose");
+const userModel = require("../models/userModel"); 
 const addUser = async (req, res) => {
   const data = req.body;
   const newUser = new userModel(data);
