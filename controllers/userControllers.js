@@ -36,23 +36,24 @@ const editUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = await userModel.findOne({ email: email });
-
-  if (user?.password === password) {
-    res.status(200).json({
-      status: "success",
-      user,
-    });
-  } else if (user && user.password !== password) {
-    res.status(400).json({
-      status: "failed",
-      message: "User has typed a wrong password",
-    });
-  } else {
-    res.status(400).json({
-      status: "failed",
-      message: "user does not exist.",
-    });
-  }
+ console.log(user);
+ if (!user) {
+   res.status(200).json({
+     status: "failed",
+     message: "user does not exist.",
+   });
+ } else if (user.password !== password) {
+   res.status(200).json({
+     status: "failed",
+     message: "user entered wrong password",
+   });
+ } else {
+   res.status(200).json({
+     status: "success",
+     user: user,
+   });
+ }
+  
 };
 
 module.exports = { addUser, editUser, loginUser };
