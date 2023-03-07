@@ -1,21 +1,35 @@
 const { Schema, default: mongoose } = require("mongoose");
 const Product = require("./productModel");
-const User = require("./userModel");
 
 const orderSchema = new Schema({
   products: {
-    type: [Product],
+    type: [
+      {
+        id: { type: String, required: true },
+        name: { type: String, required: true },
+        brand: { type: String, required: true },
+        ram: { type: Number, required: true },
+        screen: {
+          size: { type: Number, required: true },
+          type: { type: String, required: true },
+        },
+        processor: { type: String, required: true },
+        stock: { type: Number, required: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number },
+      },
+    ],
     required: true,
   },
   user: {
-    type: User,
+    type: String,
     required: true,
   },
-  totalAmaount: {
+  totalCost: {
     type: Number,
     required: true,
   },
-  totalPhone: {
+  totalItems: {
     type: Number,
     required: true,
   },

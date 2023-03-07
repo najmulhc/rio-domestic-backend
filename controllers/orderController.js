@@ -1,3 +1,5 @@
+const Order = require("../models/orderModel");
+
 const getOrders = (req, res) => {
   const success = false;
   if (success) {
@@ -15,19 +17,20 @@ const getOrders = (req, res) => {
   }
 };
 
-const postOrder = (req, res) => {
+const postOrder = async (req, res) => {
   const success = false;
-  if (success) {
+  const postedOrder = req.body;
+  const newOrder = new Order(postedOrder);
+  try {
+    const savedOrder = await newOrder.save();
     res.status(200).json({
       status: "success",
-      data: {
-        user: "yes sir",
-      },
+      order: savedOrder,
     });
-  } else {
-    res.status(400).json({
+  } catch (error) {
+    res.status(200).json({
       status: "failed",
-      message: "something went wrong",
+      message: error.message,
     });
   }
 };
