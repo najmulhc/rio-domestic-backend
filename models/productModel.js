@@ -10,7 +10,7 @@ const { Schema, default: mongoose } = require("mongoose");
     type: { type: String, required: true },
   },
   processor: { type: String, required: true },
-  stock: { type: Number, required: true },
+  stock: { type: Number, required: true },   
   price: { type: Number, required: true },
   quantity: { type: Number },
 });

@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose");
 const Product = require("../models/productModel");
 
 const getProducts = async (req, res) => {
+ 
   try {
     const products = await Product.find();
     res.status(200).json({
@@ -61,35 +62,31 @@ const updateProduct =  (req, res) => {
 };
 const postProduct = async (req, res) => {
   const postedProduct = req.body;
+   
   try {
     const newProduct = new Product(postedProduct);
     const savedProduct = await newProduct.save();
+    console.log(savedProduct)
     res.status(200).json({
       status: "success",
       product: savedProduct,
     });
   } catch (error) {
+    console.log(error.message)
     res.status(400).json({
       status: "failed",
       message: error.message,
     });
   }
 };
-const deleteProduct = (req, res) => {
-  const success = false;
-  if (success) {
+const deleteProduct =  async (req, res) => {
+ const {id} = req.params;
+ const deleteable = await Product.findOneAndDelete({_id: id});
     res.status(200).json({
       status: "success",
-      data: {
-        user: "yes sir",
-      },
+       product: deleteable,
     });
-  } else {
-    res.status(400).json({
-      status: "failed",
-      message: "something went wrong",
-    });
-  }
+   
 };
 
 module.exports = {
