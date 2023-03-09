@@ -33,6 +33,10 @@ const orderSchema = new Schema({
     type: Number,
     required: true,
   },
+  status: {
+    type: String,
+    required: false,
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);

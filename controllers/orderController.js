@@ -1,25 +1,19 @@
 const Order = require("../models/orderModel");
 
-const getOrders = (req, res) => {
-  const success = false;
-  if (success) {
-    res.status(200).json({
-      status: "success",
-      data: {
-        user: "yes sir",
-      },
-    });
-  } else {
-    res.status(400).json({
-      status: "failed",
-      message: "something went wrong",
-    });
-  }
+const getOrders = async (req, res) => {
+  const orders = await Order.find();
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      orders: orders,
+    },
+  });
 };
 
 const postOrder = async (req, res) => {
   const success = false;
-  const postedOrder = req.body;
+  const postedOrder = { ...req.body, status: "Pending" };
   const newOrder = new Order(postedOrder);
   try {
     const savedOrder = await newOrder.save();
@@ -35,21 +29,18 @@ const postOrder = async (req, res) => {
   }
 };
 
-const updateOrder = (req, res) => {
-  const success = false;
-  if (success) {
-    res.status(200).json({
-      status: "success",
-      data: {
-        user: "yes sir",
-      },
-    });
-  } else {
-    res.status(400).json({
-      status: "failed",
-      message: "something went wrong",
-    });
-  }
+const updateOrder = async (req, res) => {
+  const { stat } = req.body;
+  const { id } = req.params;
+
+  const updatedOrder = await Order.findByIdAndUpdate(id, {
+    $set: { status: stat },
+  });
+
+  res.status(200).json({
+    status: "success",
+    order: updatedOrder,
+  });
 };
 
 const deleteOrder = (req, res) => {
